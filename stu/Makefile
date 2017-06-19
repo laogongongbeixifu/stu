@@ -12,4 +12,5 @@ $(OBJS):%.cgi:%.c
 clean:
 	rm ./*.cgi
 
-
+install:
+	cp *.cgi /usr/lib/cgi-bin/sx/
