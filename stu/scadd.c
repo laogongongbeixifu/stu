@@ -13,9 +13,9 @@ int cgiMain()
 	FILE * fd;
 
 	char sname[32] = "\0";
-	char deptno[16] = "\0";
+	char cno[16] = "\0";
 	char sno[32] = "\0";
-	char sex[16] = "\0";
+	char score[16] = "\0";
 	int status = 0;
 	char ch;
 
@@ -39,10 +39,10 @@ int cgiMain()
 		return 1;
 	}
 
-	status = cgiFormString("deptno",  deptno, 16);
+	status = cgiFormString("cno",  cno, 16);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get deptno error!\n");
+		fprintf(cgiOut, "get cno error!\n");
 		return 1;
 	}
 
@@ -53,10 +53,10 @@ int cgiMain()
 		return 1;
 	}
 
-	status = cgiFormString("sex",  sex, 16);
+	status = cgiFormString("score",  score, 16);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get sex error!\n");
+		fprintf(cgiOut, "get score error!\n");
 		return 1;
 	}
 
@@ -98,7 +98,7 @@ int cgiMain()
 
 
 
-	sprintf(sql, "insert into information(sno,sname,sex,deptno) values(%d, '%s', '%s',%d)", atoi(sno), sname, sex,atoi(deptno));
+	sprintf(sql, "insert into score(sno,sname,cno,score) values(%d, '%s', %d,%d)", atoi(sno), sname ,atoi(cno),atoi(score));
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
@@ -106,7 +106,7 @@ int cgiMain()
 		return -1;
 	}
 
-	fprintf(cgiOut, "add student ok!\n");
+	fprintf(cgiOut, "add score ok!\n");
 	mysql_close(db);
 	return 0;
 }

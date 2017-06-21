@@ -10,7 +10,7 @@ char * footname = "footer.html";
 
 int cgiMain()
 {
-  FILE * fd;
+	FILE * fd;
 
 	fprintf(cgiOut, "Content-type:text/html;charset=utf-8\n\n");
 /*	fprintf(cgiOut, "<head><meta charset=\"utf-8\"/><title>查询结果</title>\
@@ -42,7 +42,7 @@ int cgiMain()
 	status = cgiFormString("sname",  sname, 32);
 	if (status != cgiFormSuccess)
 	{
-		fprintf(cgiOut, "get name error!\n");
+		fprintf(cgiOut, "get sname error!\n");
 		return 1;
 	}
 
@@ -52,11 +52,11 @@ int cgiMain()
 
 	if (sname[0] == '*')
 	{
-		sprintf(sql, "select information.sno,information.sname,information.sex,school.deptno,school.dept from information,school where information.deptno = school.deptno and information.flag=0");
+		sprintf(sql, "select score.sno,score.sname,score.cno,score.score,school.course,school.dept from score,school,information where score.cno=school.cno and score.sno=information.sno and score.flag=0");
 	}
 	else
 	{
-		sprintf(sql, "select information.sno,information.sname,information.sex,school.deptno,school.dept from information,school where sname = '%s' and information.deptno = school.deptno and information.flag=0", sname);
+		sprintf(sql, "select score.sno,score.sname,score.cno,score.score,school.course,school.dept from score,school,information where score.sname = '%s' and score.cno=school.cno and information.sno=score.sno and score.flag=0", sname);
 	}
 
 
